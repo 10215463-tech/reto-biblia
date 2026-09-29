@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Reto Bíblico Mundial: preguntas bíblicas, batallas contra NPC, salas 1v1, 2v2, 3v3 y 4v4, experiencia y clasificación mundial.">
+<meta name="keywords" content="juego bíblico, preguntas bíblicas, trivia bíblica, juego cristiano, NPC, 1v1, 2v2, 3v3, 4v4">
+<meta name="theme-color" content="#121a2b">
+<meta property="og:title" content="Reto Bíblico Mundial">
+<meta property="og:description" content="Pon a prueba tus conocimientos bíblicos, compite contra NPC y entra a salas de batalla.">
+<meta property="og:type" content="website">
+<title>Reto Bíblico Mundial | Trivia y Batallas Bíblicas</title>
+<style>
+:root{
+  --bg:#0b1020; --panel:#121a2b; --panel2:#18233a; --line:#2a3855;
+  --text:#f4f7fb; --muted:#aeb9ca; --gold:#f3c969; --green:#57d49a;
+  --red:#ff7272; --blue:#62a9ff; --purple:#a77bff; --shadow:0 18px 50px rgba(0,0,0,.26);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(circle at 10% 0%,#20315b 0,transparent 35%),radial-gradient(circle at 100% 20%,#3a245d 0,transparent 32%),var(--bg);color:var(--text);min-height:100vh}
+button,input,select{font:inherit} button{cursor:pointer} .hidden{display:none!important}
+.topbar{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(11,16,32,.82);border-bottom:1px solid rgba(255,255,255,.08)}
+.nav{max-width:1180px;margin:auto;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.brand{font-weight:900;letter-spacing:.4px;margin-right:auto}.brand span{color:var(--gold)}
+.nav button{background:transparent;color:var(--muted);border:1px solid transparent;padding:9px 12px;border-radius:12px}.nav button:hover,.nav button.active{color:#fff;background:rgba(255,255,255,.06);border-color:var(--line)}
+.container{max-width:1180px;margin:auto;padding:24px 16px 56px}.view{display:none}.view.active{display:block}
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:20px;align-items:stretch}.hero-card,.panel{background:linear-gradient(160deg,rgba(24,35,58,.95),rgba(18,26,43,.96));border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.hero-card{padding:34px}.hero h1{font-size:clamp(2rem,5vw,4rem);line-height:1.02;margin:0 0 14px}.hero h1 span{color:var(--gold)}.hero p{color:var(--muted);font-size:1.08rem;line-height:1.65;max-width:720px}.tag{display:inline-flex;gap:8px;align-items:center;padding:7px 11px;border-radius:99px;background:rgba(243,201,105,.12);border:1px solid rgba(243,201,105,.25);color:var(--gold);font-weight:800;font-size:.88rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.stat{padding:15px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07)}.stat b{display:block;font-size:1.5rem}.stat small{color:var(--muted)}
+.hero-side{padding:24px;display:flex;flex-direction:column;justify-content:space-between}.hero-side h3{margin-top:0}.orb{width:120px;height:120px;margin:5px auto 14px;border-radius:50%;display:grid;place-items:center;font-size:3.8rem;background:radial-gradient(circle at 35% 30%,#ffeec0,#f3c969 42%,#775b20 100%);box-shadow:0 0 70px rgba(243,201,105,.28)}
+.btn{border:0;border-radius:13px;padding:11px 15px;font-weight:800;transition:.15s transform,.15s opacity;background:#25324d;color:#fff}.btn:hover{transform:translateY(-1px)} .btn.primary{background:linear-gradient(135deg,#f3c969,#dfa93f);color:#17130a}.btn.green{background:linear-gradient(135deg,#57d49a,#2a9e6d);color:#06140e}.btn.blue{background:linear-gradient(135deg,#62a9ff,#4776dd)}.btn.red{background:linear-gradient(135deg,#ff7272,#d84e4e)} .btn.ghost{background:transparent;border:1px solid var(--line)}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:28px 0 14px}.section-title h2{margin:0}.section-title p{margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.mode-card{padding:20px;min-height:170px;position:relative;overflow:hidden}.mode-card .icon{font-size:2rem}.mode-card h3{margin:10px 0 5px}.mode-card p{color:var(--muted);font-size:.94rem;line-height:1.45}.mode-card button{margin-top:8px}
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.level{padding:18px}.level h3{margin:8px 0}.level p{color:var(--muted);min-height:48px}.badge{display:inline-block;padding:5px 9px;border-radius:99px;font-size:.8rem;font-weight:900}.easy{background:rgba(87,212,154,.12);color:var(--green)}.medium{background:rgba(98,169,255,.12);color:var(--blue)}.hard{background:rgba(243,201,105,.12);color:var(--gold)}.expert{background:rgba(167,123,255,.14);color:var(--purple)}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:7px}.field label{font-weight:800;font-size:.9rem}.field input,.field select{background:#0f1627;border:1px solid var(--line);color:#fff;border-radius:12px;padding:12px;outline:none}.field input:focus,.field select:focus{border-color:#5d79b9}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:8px 11px;border-radius:999px;background:#0f1627;border:1px solid var(--line);color:var(--muted)}
+.battle-shell{background:linear-gradient(150deg,#111a2d,#0c1220);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:var(--shadow)}
+.battle-top{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px}.battle-top .versus{font-weight:1000;color:var(--gold);letter-spacing:2px}.battle-score{display:grid;grid-template-columns:1fr auto 1fr;gap:15px;align-items:center;padding:18px 20px;background:rgba(255,255,255,.02)}
+.fighter{padding:14px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025)}.fighter-head{display:flex;align-items:center;gap:12px}.avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-size:1.6rem;background:linear-gradient(135deg,#2a395b,#19233a);border:1px solid #405276}.fighter-name{font-weight:950}.fighter-sub{font-size:.78rem;color:var(--muted)}.hp{height:8px;background:#253047;border-radius:99px;overflow:hidden;margin-top:11px}.hp i{display:block;height:100%;background:linear-gradient(90deg,var(--green),#79efba);width:100%;transition:.35s}.hp.enemy i{background:linear-gradient(90deg,#ff9393,var(--red))}.score{font-size:2rem;font-weight:1000;text-align:center}.battle-main{padding:22px}.question-card{padding:22px;border:1px solid var(--line);border-radius:21px;background:linear-gradient(150deg,rgba(24,35,58,.9),rgba(13,18,31,.95))}.question-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:.84rem}.question-card h2{font-size:clamp(1.3rem,3vw,2rem);line-height:1.28;margin:16px 0}.answers-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.answer-btn{padding:15px;text-align:left;border-radius:15px;background:#0f1627;border:1px solid var(--line);color:#fff;min-height:62px;font-weight:750}.answer-btn:hover{border-color:#627aa9;background:#141f35}.answer-btn.correct{background:rgba(87,212,154,.14);border-color:#58c995}.answer-btn.wrong{background:rgba(255,114,114,.12);border-color:#d65d5d}.answer-btn.reveal{border-color:#e9c363;background:rgba(243,201,105,.11)}
+.battle-log{margin-top:14px;min-height:82px;padding:14px;border-radius:15px;background:#0a0f1b;border:1px dashed #2d3b58;color:var(--muted);line-height:1.55}.battle-log strong{color:#fff}.npc-thinking{display:inline-flex;gap:4px}.dot{width:6px;height:6px;background:#91a4c8;border-radius:50%;display:inline-block;animation:blink 1s infinite}.dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}@keyframes blink{50%{opacity:.2}}
+.results{margin-top:16px;padding:20px;border-radius:19px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(243,201,105,.09),rgba(255,255,255,.03))}.results h3{margin-top:0}.result-big{font-size:2.5rem;font-weight:1000;color:var(--gold)}
+.room-card{padding:20px}.room-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.room-list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.room{padding:16px;border-radius:16px;border:1px solid var(--line);background:#0f1627}.room .room-code{font-weight:1000;color:var(--gold);letter-spacing:2px}.teams{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.team{padding:12px;border-radius:13px;background:#141f35}.team small{color:var(--muted)}
+.rank-table{width:100%;border-collapse:collapse}.rank-table th,.rank-table td{padding:13px 10px;border-bottom:1px solid var(--line);text-align:left}.rank-table th{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.rank-table tr:hover td{background:rgba(255,255,255,.02)}
+.profile{display:grid;grid-template-columns:300px 1fr;gap:16px}.profile-box,.achievement-box{padding:22px}.profile-avatar{width:94px;height:94px;border-radius:28px;display:grid;place-items:center;font-size:3rem;background:linear-gradient(135deg,#f3c969,#e39d35);color:#17130a;margin-bottom:12px}.xpbar{height:10px;background:#293550;border-radius:99px;overflow:hidden}.xpbar i{height:100%;display:block;background:linear-gradient(90deg,#8d69ff,#d0bfff);width:25%}
+.toast{position:fixed;right:18px;bottom:18px;z-index:100;padding:13px 16px;border-radius:13px;background:#172139;border:1px solid #3d4f75;box-shadow:var(--shadow);display:none}.toast.show{display:block;animation:toastIn .2s ease}@keyframes toastIn{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+.modal-back{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;z-index:90;padding:16px}.modal-back.show{display:flex}.modal{width:min(520px,100%);padding:22px;background:#121a2b;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+.notice{padding:13px 15px;border-radius:14px;background:rgba(98,169,255,.09);border:1px solid rgba(98,169,255,.2);color:#cfe2ff;line-height:1.5}.footer{max-width:1180px;margin:auto;padding:15px 16px 30px;color:#8794aa;text-align:center}
+@media(max-width:950px){.hero,.profile{grid-template-columns:1fr}.grid,.levels{grid-template-columns:1fr 1fr}.room-list{grid-template-columns:1fr}}
+@media(max-width:640px){.stats,.form-grid,.battle-score,.teams,.answers-grid{grid-template-columns:1fr}.battle-top{align-items:flex-start;flex-direction:column}.grid,.levels{grid-template-columns:1fr}.container{padding-top:15px}.hero-card{padding:24px}.score{order:-1}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <nav class="nav">
+    <div class="brand">📖 Reto <span>Bíblico Mundial</span></div>
+    <button data-nav="home" onclick="go('home')">Inicio</button>
+    <button data-nav="play" onclick="go('play')">Jugar</button>
+    <button data-nav="rooms" onclick="go('rooms')">Salas</button>
+    <button data-nav="rank" onclick="go('rank')">Clasificación</button>
+    <button data-nav="profile" onclick="go('profile')">Perfil</button>
+  </nav>
+</div>
+
+<main class="container">
+<section id="home" class="view active">
+  <div class="hero">
+    <div class="hero-card hero">
+      <div>
+        <div class="tag">🌎 TRIVIA BÍBLICA COMPETITIVA</div>
+        <h1>Demostrá cuánto <span>conocés la Biblia.</span></h1>
+        <p>Entrá a una batalla contra un NPC, entrená por nivel y competí en salas con amigos. El sistema registra tus respuestas correctas, experiencia y estadísticas en este dispositivo.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+          <button class="btn primary" onclick="go('play')">🎮 Jugar ahora</button>
+          <button class="btn ghost" onclick="go('rooms')">🏠 Crear una sala</button>
+        </div>
+        <div class="stats">
+          <div class="stat"><b id="homeCorrect">0</b><small>Respuestas correctas</small></div>
+          <div class="stat"><b id="homeWins">0</b><small>Victorias</small></div>
+          <div class="stat"><b id="homeXP">0</b><small>Experiencia</small></div>
+        </div>
+      </div>
+      <div class="hero-side panel">
+        <div><div class="orb">✝️</div><h3 style="text-align:center">Temporada: Reto Mundial</h3><p class="fighter-sub" style="text-align:center">Subí de rango respondiendo correctamente.</p></div>
+        <button class="btn green" onclick="quickStart()">⚡ Partida rápida</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title"><div><h2>Modos de juego</h2><p>Elegí cómo querés competir.</p></div></div>
+  <div class="grid">
+    <div class="panel mode-card"><div class="icon">🤖</div><h3>Contra NPC</h3><p>Batallas con rivales controlados por la computadora. La dificultad cambia las preguntas y la precisión.</p><button class="btn primary" onclick="go('play');openNPC()">Entrar</button></div>
+    <div class="panel mode-card"><div class="icon">👥</div><h3>Salas</h3><p>Prepará partidas 1v1, 2v2, 3v3 o 4v4 y compartí el código de sala.</p><button class="btn blue" onclick="go('rooms')">Ver salas</button></div>
+    <div class="panel mode-card"><div class="icon">🏆</div><h3>Clasificación</h3><p>Consultá tu historial y el tablero local de jugadores registrados en este navegador.</p><button class="btn ghost" onclick="go('rank')">Ver ranking</button></div>
+    <div class="panel mode-card"><div class="icon">🧠</div><h3>Entrenamiento</h3><p>Practicá preguntas por nivel sin presión de una batalla.</p><button class="btn green" onclick="startTraining()">Entrenar</button></div>
+  </div>
+</section>
+
+<section id="play" class="view">
+  <div class="section-title"><div><h2>🎮 Preparar partida</h2><p>Elegí el modo y la dificultad.</p></div></div>
+  <div class="panel" style="padding:22px">
+    <div class="form-grid">
+      <div class="field"><label>Modo</label><select id="modeSelect"><option value="npc">🤖 Contra NPC</option><option value="training">🧠 Entrenamiento</option></select></div>
+      <div class="field"><label>Nivel</label><select id="levelSelect"><option value="easy">Fácil</option><option value="medium">Medio</option><option value="hard">Difícil</option><option value="expert">Experto</option></select></div>
+      <div class="field"><label>Preguntas</label><select id="countSelect"><option value="5">5</option><option value="8" selected>8</option><option value="10">10</option></select></div>
+    </div>
+    <div id="npcPreview" style="margin-top:18px"></div>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary" onclick="startConfigured()">⚔️ Comenzar partida</button><button class="btn ghost" onclick="go('home')">Volver</button></div>
+  </div>
+  <div class="section-title"><div><h2>Dificultades</h2><p>Las preguntas cambian de verdad según el nivel.</p></div></div>
+  <div class="levels">
+    <div class="panel level"><span class="badge easy">FÁCIL</span><h3>Fundamentos</h3><p>Personajes, historias y hechos bíblicos conocidos.</p></div>
+    <div class="panel level"><span class="badge medium">MEDIO</span><h3>Conocimiento</h3><p>Detalles de libros, lugares, eventos y personajes.</p></div>
+    <div class="panel level"><span class="badge hard">DIFÍCIL</span><h3>Estudio</h3><p>Preguntas de contenido menos evidente y referencias.</p></div>
+    <div class="panel level"><span class="badge expert">EXPERTO</span><h3>Reto</h3><p>Genealogías, contexto, citas, autores y detalles específicos.</p></div>
+  </div>
+</section>
+
+<section id="battle" class="view">
+  <div class="battle-shell">
+    <div class="battle-top"><div><strong id="battleMode">BATALLA</strong><div class="fighter-sub" id="battleLevelLabel">Nivel</div></div><div class="versus">VS</div><div><span class="tag" id="battleRound">RONDA 1/8</span></div></div>
+    <div class="battle-score">
+      <div class="fighter"><div class="fighter-head"><div class="avatar" id="playerAvatar">🧑</div><div><div class="fighter-name" id="playerName">Jugador</div><div class="fighter-sub">Tú</div></div></div><div class="hp"><i id="playerHP"></i></div></div>
+      <div class="score"><span id="playerScore">0</span><div class="fighter-sub">puntos</div></div>
+      <div class="fighter"><div class="fighter-head"><div class="avatar" id="npcAvatar">🤖</div><div><div class="fighter-name" id="npcName">Bibot</div><div class="fighter-sub" id="npcSub">Rival NPC</div></div></div><div class="hp enemy"><i id="npcHP"></i></div></div>
+    </div>
+    <div class="battle-main">
+      <div class="question-card">
+        <div class="question-meta"><span id="questionCategory">Biblia</span><span id="questionTimer">⏱️ Tu turno</span></div>
+        <h2 id="battleQuestion">Cargando pregunta...</h2>
+        <div id="battleAnswers" class="answers-grid"></div>
+        <div id="battleLog" class="battle-log">Respondé la pregunta para continuar.</div>
+        <div id="battleActions" style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" onclick="go('home')">Salir de la partida</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rooms" class="view">
+  <div class="section-title"><div><h2>🏠 Salas de batalla</h2><p>Elegí el formato de equipos.</p></div></div>
+  <div class="panel room-card">
+    <div class="form-grid">
+      <div class="field"><label>Nombre de sala</label><input id="roomName" maxlength="24" placeholder="Ej. Jóvenes Bíblicos"></div>
+      <div class="field"><label>Formato</label><select id="roomFormat"><option value="1v1">1v1</option><option value="2v2">2v2</option><option value="3v3">3v3</option><option value="4v4">4v4</option></select></div>
+      <div class="field"><label>Nivel</label><select id="roomLevel"><option value="easy">Fácil</option><option value="medium">Medio</option><option value="hard">Difícil</option><option value="expert">Experto</option></select></div>
+    </div>
+    <div class="room-actions"><button class="btn primary" onclick="createRoom()">➕ Crear sala</button><button class="btn ghost" onclick="joinRoomPrompt()">🔑 Entrar con código</button></div>
+    <div class="notice" style="margin-top:16px">Esta versión es un prototipo que guarda las salas en el navegador. Para partidas reales entre teléfonos y computadoras se necesita un servidor/backend.</div>
+  </div>
+  <div class="room-list" id="roomList"></div>
+</section>
+
+<section id="rank" class="view">
+  <div class="section-title"><div><h2>🌎 Clasificación mundial</h2><p>Ordenada por respuestas correctas acumuladas.</p></div><button class="btn ghost" onclick="seedRanking()">Actualizar demo</button></div>
+  <div class="panel" style="padding:18px;overflow:auto">
+    <table class="rank-table"><thead><tr><th>#</th><th>Jugador</th><th>País</th><th>Correctas</th><th>Precisión</th><th>Victorias</th><th>Rango</th></tr></thead><tbody id="rankBody"></tbody></table>
+  </div>
+  <div class="notice" style="margin-top:14px">📡 El tablero mostrado aquí funciona como clasificación del prototipo. Para que sea realmente mundial y sincronizado entre usuarios, el sitio publicado necesita una base de datos y autenticación.</div>
+</section>
+
+<section id="profile" class="view">
+  <div class="profile">
+    <div class="panel profile-box">
+      <div class="profile-avatar">🧑‍🎓</div>
+      <h2 id="profileName">Jugador</h2>
+      <p class="fighter-sub">Rango: <strong id="profileRank">Novato</strong></p>
+      <div style="margin-top:16px;display:flex;justify-content:space-between"><span>Experiencia</span><strong id="xpLabel">0 / 100</strong></div>
+      <div class="xpbar"><i id="xpBar"></i></div>
+      <div class="field" style="margin-top:18px"><label>Tu nombre</label><input id="nameInput" maxlength="20" placeholder="Escribe tu nombre"></div>
+      <button class="btn primary" style="margin-top:10px" onclick="saveProfile()">Guardar perfil</button>
+    </div>
+    <div class="panel achievement-box">
+      <h2>📊 Estadísticas</h2>
+      <div class="stats">
+        <div class="stat"><b id="statCorrect">0</b><small>Correctas</small></div><div class="stat"><b id="statTotal">0</b><small>Respondidas</small></div><div class="stat"><b id="statWins">0</b><small>Victorias</small></div>
+      </div>
+      <h3 style="margin-top:24px">Insignias</h3>
+      <div class="chips" id="badges"></div>
+    </div>
+  </div>
+</section>
+</main>
+<div class="footer">Reto Bíblico Mundial · Prototipo web listo para alojamiento estático · 📖</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const BANKS={
+ easy:[
+  ['Personajes','¿Quién construyó el arca?',['Noé','Moisés','David','Salomón'],0],
+  ['Personajes','¿Quién derrotó a Goliat?',['David','Saúl','Josué','Elías'],0],
+  ['Evangelios','¿Dónde nació Jesús?',['Nazaret','Belén','Jerusalén','Jericó'],1],
+  ['Evangelios','¿Cuántos discípulos escogió Jesús como apóstoles?',['10','11','12','14'],2],
+  ['Pentateuco','¿Quién recibió los Diez Mandamientos?',['Abraham','Moisés','Josué','Samuel'],1],
+  ['Personajes','¿Quién fue tragado por un gran pez?',['Jonás','Daniel','Job','Isaías'],0],
+  ['Biblia','¿Cuál es el primer libro de la Biblia?',['Éxodo','Génesis','Salmos','Mateo'],1],
+  ['Evangelios','¿Quién negó a Jesús tres veces?',['Pedro','Juan','Tomás','Andrés'],0],
+  ['Salmos','¿Quién es tradicionalmente asociado con muchos salmos?',['David','Pilato','Lázaro','Esteban'],0],
+  ['Personajes','¿Quién fue conocido por su gran fuerza y su cabello?',['Sansón','Samuel','Miqueas','Tito'],0]
+ ],
+ medium:[
+  ['Pentateuco','¿Qué hombre fue llamado padre de muchas naciones?',['Isaac','Abraham','Jacob','José'],1],
+  ['Historia','¿Quién sucedió a Moisés como líder de Israel?',['Josué','Caleb','Aarón','Samuel'],0],
+  ['Reyes','¿Qué rey pidió sabiduría a Dios?',['David','Saúl','Salomón','Ezequías'],2],
+  ['Profetas','¿Qué profeta desafió a los profetas de Baal en el monte Carmelo?',['Eliseo','Elías','Isaías','Jeremías'],1],
+  ['Evangelios','¿Qué evangelio comienza con una genealogía de Jesús?',['Marcos','Juan','Mateo','Lucas'],2],
+  ['Hechos','¿En qué ciudad fueron llamados cristianos por primera vez los discípulos?',['Jerusalén','Antioquía','Roma','Corinto'],1],
+  ['Epístolas','¿Quién escribió la carta a Filemón?',['Pedro','Pablo','Santiago','Judas'],1],
+  ['Evangelios','¿Quién era el recaudador de impuestos llamado por Jesús?',['Zaqueo','Mateo','Bartimeo','Jairo'],1],
+  ['Historia','¿Qué muro cayó después de que Israel rodeara la ciudad?',['Jericó','Nínive','Damasco','Samaria'],0],
+  ['Evangelios','¿Qué discípulo quiso ver para creer que Jesús había resucitado?',['Tomás','Felipe','Mateo','Simón el Zelote'],0]
+ ],
+ hard:[
+  ['Pentateuco','¿Quién fue el padre de Bezalel, artesano encargado de trabajar en el tabernáculo?',['Uri','Hur','Aminadab','Eleazar'],0],
+  ['Historia','¿Qué juez de Israel hizo un voto relacionado con su hija después de una victoria?',['Gedeón','Jefté','Débora','Otoniel'],1],
+  ['Reyes','¿Qué profeta confrontó al rey David por su pecado con Betsabé?',['Natán','Gad','Ahías','Micaías'],0],
+  ['Profetas','Según Isaías, ¿qué señal recibió el rey Acaz relacionada con un hijo?',['Una estrella','Una virgen concebirá','Un río se abriría','Un templo sería destruido'],1],
+  ['Evangelios','¿Qué evangelio identifica al paralítico sanado en Betesda como enfermo desde hacía treinta y ocho años?',['Mateo','Marcos','Lucas','Juan'],3],
+  ['Hechos','¿Quién cayó muerto después de retener para sí parte del precio de una propiedad?',['Ananías','Bernabé','Silas','Alejandro'],0],
+  ['Epístolas','¿A quién dejó Pablo en Creta para organizar lo que faltaba y establecer ancianos?',['Tito','Timoteo','Lucas','Marcos'],0],
+  ['Epístolas','¿Qué iglesia recibió una extensa enseñanza de Pablo sobre dones espirituales y la resurrección?',['Roma','Corinto','Éfeso','Filipos'],1],
+  ['Historia','¿Qué rey fue herido de lepra tras intentar quemar incienso en el templo?',['Uzías','Josías','Acaz','Manasés'],0],
+  ['Profetas','¿Qué profeta compró un campo en Anatot como señal de esperanza durante el sitio de Jerusalén?',['Ezequiel','Jeremías','Daniel','Oseas'],1]
+ ],
+ expert:[
+  ['Genealogías','En la genealogía de Mateo, ¿qué mujer extranjera aparece entre los antepasados de Jesús?',['Rut','Débora','Hulda','Abigail'],0],
+  ['Genealogías','¿Quién era el padre de Matusalén según Génesis 5?',['Enoc','Jared','Lamec','Seth'],0],
+  ['Pentateuco','¿Cuál era el nombre del monte donde murió Aarón?',['Horeb','Ebal','Hor','Nebo'],2],
+  ['Reyes','¿Qué rey de Judá mostró sus tesoros a los enviados de Babilonia antes de recibir la advertencia de Isaías?',['Ezequías','Josías','Roboam','Joacaz'],0],
+  ['Profetas','¿Qué profeta menciona una visión de un candelabro y dos olivos?',['Amós','Zacarías','Joel','Sofonías'],1],
+  ['Evangelios','¿Qué personaje de Lucas 2 tomó al niño Jesús en brazos y bendijo a Dios en el templo?',['Simeón','Nicodemo','Jairo','Cleofas'],0],
+  ['Hechos','¿Quién fue elegido junto con Matías como discípulo antes de que este fuera contado entre los Doce?',['José llamado Barsabás','Apolo','Tíquico','Demetrio'],0],
+  ['Epístolas','¿Qué compañero de Pablo fue descrito como “médico amado” en Colosenses?',['Lucas','Tito','Timoteo','Silvano'],0],
+  ['Apocalipsis','¿Cuántas iglesias reciben mensajes en Apocalipsis capítulos 2 y 3?',['5','6','7','12'],2],
+  ['Biblia','¿Qué libro del Antiguo Testamento es conocido por presentar el diálogo entre Dios y un hombre sobre el sufrimiento?',['Ester','Job','Rut','Nehemías'],1]
+ ]
+};
+
+const NPCS={
+ easy:[{name:'SamuelBot',avatar:'🤖',tag:'Aprendiz',accuracy:.64,delay:900}],
+ medium:[{name:'DavidIA',avatar:'🛡️',tag:'Competitivo',accuracy:.76,delay:750}],
+ hard:[{name:'SabioBot',avatar:'🧠',tag:'Estratega',accuracy:.86,delay:620}],
+ expert:[{name:'Salmón-7',avatar:'👑',tag:'Maestro',accuracy:.93,delay:480}]
+};
+
+let state=JSON.parse(localStorage.getItem('rbm_state')||'null')||{
+ name:'Jugador',correct:0,total:0,wins:0,xp:0,games:0,rooms:[],ranking:[]
+};
+let battle=null;
+
+function persist(){localStorage.setItem('rbm_state',JSON.stringify(state)); updateUI();}
+function updateUI(){
+ document.getElementById('homeCorrect').textContent=state.correct;document.getElementById('homeWins').textContent=state.wins;document.getElementById('homeXP').textContent=state.xp;
+ document.getElementById('statCorrect').textContent=state.correct;document.getElementById('statTotal').textContent=state.total;document.getElementById('statWins').textContent=state.wins;
+ document.getElementById('profileName').textContent=state.name;document.getElementById('nameInput').value=state.name;
+ let rank=state.correct>=100?'Leyenda':state.correct>=50?'Maestro':state.correct>=25?'Experto':state.correct>=10?'Estudiante':'Novato';
+ document.getElementById('profileRank').textContent=rank;let xp=state.xp%100;document.getElementById('xpLabel').textContent=xp+' / 100';document.getElementById('xpBar').style.width=xp+'%';
+ document.getElementById('badges').innerHTML=['🎯 Primer acierto','📚 10 correctas','🔥 3 victorias'].map((x,i)=>{let ok=[state.correct>=1,state.correct>=10,state.wins>=3][i];return `<span class="chip" style="opacity:${ok?1:.35}">${x}</span>`}).join('');
+ renderRanking();renderRooms();
+}
+function go(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('[data-nav]').forEach(b=>b.classList.toggle('active',b.dataset.nav===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='play')updateNPCPreview();if(id==='rank')renderRanking();}
+function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window._toast);window._toast=setTimeout(()=>t.classList.remove('show'),2200)}
+function saveProfile(){let n=document.getElementById('nameInput').value.trim();state.name=n||'Jugador';persist();toast('Perfil guardado ✅')}
+function openNPC(){document.getElementById('modeSelect').value='npc';updateNPCPreview()}
+function updateNPCPreview(){let level=document.getElementById('levelSelect').value;let n=NPCS[level][0];document.getElementById('npcPreview').innerHTML=`<div class="panel" style="padding:16px;border-color:#384a70"><div class="fighter-head"><div class="avatar">${n.avatar}</div><div><div class="fighter-name">${n.name}</div><div class="fighter-sub">${n.tag} · Precisión estimada: ${Math.round(n.accuracy*100)}% · Respuesta: ${n.delay} ms</div></div></div></div>`}
+['levelSelect','modeSelect','countSelect'].forEach(id=>document.getElementById(id).addEventListener('change',updateNPCPreview));
+
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+function buildQuestions(level,count){let pool=shuffle(BANKS[level]);let merged=pool.slice(0,count);return merged}
+function startConfigured(){let mode=document.getElementById('modeSelect').value;let level=document.getElementById('levelSelect').value;let count=Number(document.getElementById('countSelect').value);startBattle(mode,level,count)}
+function quickStart(){document.getElementById('modeSelect').value='npc';document.getElementById('levelSelect').value='medium';document.getElementById('countSelect').value='8';startConfigured()}
+function startTraining(){go('play');document.getElementById('modeSelect').value='training';document.getElementById('levelSelect').value='medium';startConfigured()}
+
+function startBattle(mode,level,count){
+ let npc=NPCS[level][0];battle={mode,level,questions:buildQuestions(level,count),idx:0,userScore:0,npcScore:0,userHP:100,npcHP:100,npc,locked:false,answered:false};
+ document.getElementById('battleMode').textContent=mode==='npc'?'BATALLA CONTRA NPC':'ENTRENAMIENTO';document.getElementById('battleLevelLabel').textContent=level.toUpperCase()+' · '+count+' PREGUNTAS';
+ document.getElementById('playerName').textContent=state.name;document.getElementById('npcName').textContent=mode==='npc'?npc.name:'Práctica';document.getElementById('npcSub').textContent=mode==='npc'?npc.tag+' · rival IA':'sin rival';document.getElementById('npcAvatar').textContent=mode==='npc'?npc.avatar:'🧠';
+ go('battle');renderBattleQuestion();
+}
+function renderBattleQuestion(){
+ battle.locked=false;battle.answered=false;let q=battle.questions[battle.idx];
+ document.getElementById('battleRound').textContent=`RONDA ${battle.idx+1}/${battle.questions.length}`;document.getElementById('questionCategory').textContent=q[0];document.getElementById('battleQuestion').textContent=q[1];document.getElementById('questionTimer').textContent=battle.mode==='npc'?'⏱️ Tu turno':'🧠 Entrenamiento';
+ let box=document.getElementById('battleAnswers');box.innerHTML='';q[2].forEach((a,i)=>{let b=document.createElement('button');b.className='answer-btn';b.textContent=String.fromCharCode(65+i)+'. '+a;b.onclick=()=>playerAnswer(i);box.appendChild(b)});
+ document.getElementById('battleLog').innerHTML='Respondé. Después verás la elección del NPC.';document.getElementById('battleActions').innerHTML='<button class="btn ghost" onclick="go(\'home\')">Salir de la partida</button>';
+ refreshBars();
+}
+function playerAnswer(choice){if(battle.locked)return;battle.locked=true;battle.answered=true;let q=battle.questions[battle.idx];let buttons=[...document.querySelectorAll('.answer-btn')];buttons.forEach(b=>b.disabled=true);let correct=choice===q[3];buttons[choice].classList.add(correct?'correct':'wrong');buttons[q[3]].classList.add('reveal');state.total++;if(correct){state.correct++;state.xp+=10;battle.userScore+=100;battle.npcHP=Math.max(0,battle.npcHP-12)}else{battle.userHP=Math.max(0,battle.userHP-12)};
+ if(battle.mode==='training'){document.getElementById('battleLog').innerHTML=correct?`<strong>✅ Correcto.</strong> +10 XP. Preparando la siguiente pregunta.`:`<strong>❌ No era esa.</strong> La respuesta correcta era <strong>${q[2][q[3]]}</strong>.`;finishOrNext();persist();return;}
+ let wait=battle.npc.delay;document.getElementById('battleLog').innerHTML=correct?`<strong>✅ Tu respuesta es correcta.</strong> ${state.name} gana 100 puntos.`:`<strong>❌ Tu respuesta es incorrecta.</strong> El NPC está preparando su respuesta...`;
+ setTimeout(()=>npcTurn(),wait);persist();
+}
+function npcTurn(){let q=battle.questions[battle.idx];let chance=battle.npc.accuracy;let npcChoice=Math.random()<chance?q[3]:randomWrong(q[3],q[2].length);let npcCorrect=npcChoice===q[3];if(npcCorrect){battle.npcScore+=100;battle.userHP=Math.max(0,battle.userHP-12)}else{battle.npcHP=Math.max(0,battle.npcHP-12)};
+ document.getElementById('battleLog').innerHTML=`<strong>🤖 ${battle.npc.name} responde:</strong> “${q[2][npcChoice]}”. ${npcCorrect?'✅ ¡Acertó!':'❌ Falló.'} <span style="color:#dbe5f5">Tu turno vuelve en un momento.</span>`;refreshBars();
+ setTimeout(()=>finishOrNext(),950);
+}
+function randomWrong(correct,len){let a=[];for(let i=0;i<len;i++)if(i!==correct)a.push(i);return a[Math.floor(Math.random()*a.length)]}
+function refreshBars(){document.getElementById('playerScore').textContent=battle?.userScore||0;document.getElementById('playerHP').style.width=(battle?.userHP||0)+'%';document.getElementById('npcHP').style.width=(battle?.npcHP||0)+'%'}
+function finishOrNext(){
+ if(battle.userHP<=0||battle.npcHP<=0||battle.idx>=battle.questions.length-1){finishBattle();return}
+ let btn=document.createElement('button');btn.className='btn primary';btn.textContent='➡️ Siguiente pregunta';btn.onclick=()=>{battle.idx++;renderBattleQuestion()};document.getElementById('battleActions').innerHTML='';document.getElementById('battleActions').appendChild(btn);refreshBars();
+}
+function finishBattle(){state.games++;let userWon=battle.userScore>battle.npcScore || (battle.npcScore===0&&battle.userHP>0);if(battle.mode==='npc'&&userWon)state.wins++;persist();
+ let title=battle.mode==='training'?'🏁 Entrenamiento terminado':userWon?'🏆 ¡Victoria!':'💥 Partida terminada';let detail=battle.mode==='training'?`Aciertos acumulados: ${state.correct}.`:`Marcador final: <strong>${battle.userScore} - ${battle.npcScore}</strong>`;
+ document.getElementById('battleLog').innerHTML=`<div class="results"><h3>${title}</h3><div class="result-big">${battle.userScore} pts</div><p>${detail}</p><p>✅ Aciertos en tu cuenta: <strong>${state.correct}</strong> · ⚡ XP: <strong>${state.xp}</strong></p></div>`;
+ document.getElementById('battleActions').innerHTML='<button class="btn primary" onclick="go(\'play\')">🔁 Jugar otra</button><button class="btn ghost" onclick="go(\'rank\')">🏆 Ver clasificación</button>';
+}
+
+function createRoom(){let name=document.getElementById('roomName').value.trim()||'Sala Bíblica';let format=document.getElementById('roomFormat').value;let level=document.getElementById('roomLevel').value;let code=Math.random().toString(36).slice(2,8).toUpperCase();let size=Number(format.split('v')[0]);let room={name,format,level,code,players:[state.name],max:size*2,created:Date.now()};state.rooms.unshift(room);state.rooms=state.rooms.slice(0,12);persist();toast('Sala creada: '+code)}
+function joinRoomPrompt(){let code=prompt('Escribí el código de la sala:');if(!code)return;let room=state.rooms.find(r=>r.code===code.trim().toUpperCase());if(!room){toast('No se encontró esa sala en este dispositivo.');return}if(room.players.length<room.max){room.players.push(state.name);persist();toast('Entraste a la sala ✅')}else toast('La sala está llena.')}
+function renderRooms(){let list=document.getElementById('roomList');if(!state.rooms.length){list.innerHTML='<div class="panel room" style="grid-column:1/-1;color:var(--muted)">No hay salas creadas todavía.</div>';return}list.innerHTML=state.rooms.map((r,i)=>`<div class="panel room"><div class="room-code">${r.code}</div><h3 style="margin:8px 0">${escapeHtml(r.name)}</h3><div class="chips"><span class="chip">⚔️ ${r.format}</span><span class="chip">📚 ${r.level}</span><span class="chip">👥 ${r.players.length}/${r.max}</span></div><div class="teams"><div class="team"><strong>Equipo A</strong><br><small>${r.players.slice(0,Math.ceil(r.max/2)).map(escapeHtml).join('<br>')||'Vacío'}</small></div><div class="team"><strong>Equipo B</strong><br><small>${r.players.slice(Math.ceil(r.max/2)).map(escapeHtml).join('<br>')||'Esperando'}</small></div></div><button class="btn blue" style="margin-top:12px" onclick="joinSpecific(${i})">Entrar</button></div>`).join('')}
+function joinSpecific(i){let r=state.rooms[i];if(r.players.includes(state.name)){toast('Ya estás en esta sala.');return}if(r.players.length>=r.max){toast('La sala está llena.');return}r.players.push(state.name);persist();toast('Entraste a la sala '+r.code+' ✅')}
+function escapeHtml(s){return s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+
+function baseRanking(){return[
+ ['LuzDelValle','🇲🇽',184,92,48],['FaithRunner','🇧🇷',171,89,44],['BibliaViva','🇨🇴',159,87,41],['SamuelCR','🇨🇷',146,84,37],['RuthStudy','🇵🇪',138,91,36],['MisioneroGT','🇬🇹',126,80,31],['DanielSV','🇸🇻',112,86,29],['EmmaLee','🇺🇸',101,82,25],['PabloCL','🇨🇱',94,79,22],['AnaES','🇪🇸',87,85,20]]}
+function rankingData(){let demo=baseRanking();let me=[state.name,'🌎',state.correct,state.total?Math.round(state.correct/state.total*100):0,state.wins];return [...demo,me].sort((a,b)=>b[2]-a[2]).map((r,i)=>[i+1,...r]);}
+function renderRanking(){let b=document.getElementById('rankBody');if(!b)return;b.innerHTML=rankingData().map((r)=>`<tr><td>${r[0]<=3?['🥇','🥈','🥉'][r[0]-1]:r[0]}</td><td><strong>${escapeHtml(r[1])}</strong></td><td>${r[2]}</td><td><strong>${r[3]}</strong></td><td>${r[4]}%</td><td>${r[5]}</td><td>${rankFromCorrect(r[3])}</td></tr>`).join('')}
+function rankFromCorrect(n){return n>=100?'Leyenda':n>=50?'Maestro':n>=25?'Experto':n>=10?'Estudiante':'Novato'}
+function seedRanking(){toast('Clasificación actualizada ✅');renderRanking()}
+
+updateUI();updateNPCPreview();renderRooms();
+</script>
+</body>
+</html>
